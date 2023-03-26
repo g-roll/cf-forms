@@ -1,0 +1,14 @@
+main = "./src/worker.ts"
+name = ""
+compatibility_date = ""
+
+route = { pattern = "", zone_id = "" }
+
+
+[[kv_namespaces]]
+binding = "KV"
+id = ""
+
+kv_namespaces = [
+	{ binding = "KV", id = "" }
+]
