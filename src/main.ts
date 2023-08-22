@@ -8,7 +8,6 @@
  * @see https://blog.cloudflare.com/sending-email-from-workers-with-mailchannels/
  */
 export async function formSubmit(endpoint: string, request: Request) {
-	//@ts-expect-error Anyone have an elegant fix?
 	const email = await KV.get(endpoint);
 	const formData = await request.formData();
 	const redirect = formData.get('$location');
@@ -111,7 +110,6 @@ export async function signup(req: Request) {
 	const email = (await req.formData()).get('email');
 	const endpoint = crypto.randomUUID();
 
-	//@ts-expect-error Anyone have an elegant fix?
 	await KV.put(endpoint, email);
 
 	//@ts-expect-error intended exception
