@@ -28,11 +28,13 @@ npx wrangler kv:namespace create KV
 
 Copy the KV ID and update `wrangler.toml` and `src/main.ts` according to your requirements.
 
-Finally, publish your worker:
+Publish your worker:
 
 ```sh
 npx wrangler publish
 ```
+
+Finally, setup a TXT record according to this [Mailchannels post](https://support.mailchannels.com/hc/en-us/articles/16918954360845-Secure-your-domain-name-against-spoofing-with-Domain-Lockdown-).
 
 ## Usage
 
