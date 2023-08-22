@@ -2,6 +2,8 @@
 
 Spam-free and simple form endpoint that generates email address-related endpoints on demand and sends its input via email. Free alternative to [Formcarry](https://formcarry.com) and [Getform](https://getform.io).
 
+Pretty HTML emails powered by [react email](https://github.com/resendlabs/react-email).
+
 [👉 Live demo](https://garethroll.com/forms)
 
 ## Quickstart
@@ -31,7 +33,7 @@ Copy the KV ID and update `wrangler.toml` and `src/main.ts` according to your re
 Publish your worker:
 
 ```sh
-npx wrangler publish
+npx wrangler deploy
 ```
 
 Finally, setup a TXT record according to this [Mailchannels post](https://support.mailchannels.com/hc/en-us/articles/16918954360845-Secure-your-domain-name-against-spoofing-with-Domain-Lockdown-).

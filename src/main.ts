@@ -1,3 +1,6 @@
+import { html as signupBody } from '../emails/signup';
+import { html as submissionBody } from '../emails/submission';
+
 /**
  * Submits a form and sends an email to the recipient with the submitted form
  * data.
@@ -14,20 +17,10 @@ export async function formSubmit(endpoint: string, request: Request) {
 
 	if (!email) return new Response('Endpoint not found.', { status: 404 });
 
-	const tableRows = [...formData.entries()]
-		.filter(([key]) => typeof key === 'string' && !key.startsWith('$'))
-		.map(
-			([key, value]) =>
-				`<tr>
-                    <td align="left">
-                        ${key}
-                    </td>
-                    <td align="left">
-                        ${value}
-                    </td>
-                </tr>`
-		)
-		.join('');
+	//@ts-expect-error strings filtered
+	const rows: [key: string, value: string][] = [...formData.entries()].filter(
+		([key]) => typeof key === 'string' && !key.startsWith('$')
+	);
 
 	const message = {
 		personalizations: [
@@ -43,29 +36,7 @@ export async function formSubmit(endpoint: string, request: Request) {
 		content: [
 			{
 				type: 'text/html',
-				value: `<p>Hi,</p>
-                <br />
-                <p>You have received a new form submission.</p>
-                <br />
-                <table
-                    border="1"
-                    cellspacing="5"
-                    width="100%">
-                    <tr>
-                        <th align="left">Field</th>
-                        <th align="left">Input</th>
-                    </tr>
-                    ${tableRows}
-                </table>
-                <br />
-                <p>Endpoint: ${endpoint}</p>
-                <br />
-                <strong>
-                    <p>
-						Brought you by
-						<a href="https://garethroll.com/forms">Gareth Roll</a>
-					</p>
-                </strong>`,
+				value: submissionBody({ rows, endpoint }),
 			},
 		],
 	};
@@ -148,11 +119,7 @@ async function sendConfirmation(email: string, endpoint: string) {
 			content: [
 				{
 					type: 'text/html',
-					value: `<p>Hi,</p>
-                        <p>Your endpoint is: <strong>${endpoint}</strong></p>
-                        <br />
-                        <p>Greetings,</p>
-                        <p>Gareth</p>`,
+					value: signupBody({ endpoint }),
 				},
 			],
 		}),
